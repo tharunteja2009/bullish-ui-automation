@@ -31,7 +31,7 @@ public class Hooks {
     //close browser window if still exist
     DriverUtil.closeDriver();
     //initialize driver and launch app url
-    DriverUtil.getDefaultDriver().get(PropertyManager.hostName);
+    DriverUtil.getDefaultDriver().get(PropertyManager.APPURL);
     logger.info("application launched successfully");
   }
 }

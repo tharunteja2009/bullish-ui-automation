@@ -28,18 +28,15 @@ public class DriverUtil {
   static DesiredCapabilities capability = null;
   static Logger logger = LoggerFactory.getLogger(DriverUtil.class);
 
+  /**
+   * This method will return DesiredCapabilities by inputstream from a config file
+   * @param input
+   * @return DesiredCapabilities
+   */
   public static DesiredCapabilities getCapability(InputStream input) {
     DesiredCapabilities capability = new DesiredCapabilities();
     try {
       prop.load(input);
-      if (prop.containsKey("app")) {
-        String appName = prop.getProperty("app");
-        if (!appName.contains("sauce-storage")) {
-          String appPath = currentPath + "/src/main/java/appUnderTest/" + appName;
-          prop.setProperty("app", appPath);
-        }
-      }
-
       // set capabilities
       Enumeration<Object> enuKeys = prop.keys();
       while (enuKeys.hasMoreElements()) {
@@ -55,6 +52,10 @@ public class DriverUtil {
     return capability;
   }
 
+  /**
+   * get webdriver by configuration , return only one webdriver at at time build with singleton pattern
+   * @return WebDriver
+   */
   public static WebDriver getDefaultDriver() {
     if (driver != null) {
       return driver;
@@ -83,6 +84,10 @@ public class DriverUtil {
     return driver;
   }
 
+  /**
+   * return WebDriver by browser
+   * @return WebDriver
+   */
   private static WebDriver chooseDriver() {
     capability = new DesiredCapabilities();
     capability.setJavascriptEnabled(true);
@@ -129,15 +134,14 @@ public class DriverUtil {
     }
   }
 
-  public static WebElement waitAndGetElementByXpathSelector(
-      WebDriver driver, WebElement selector, int seconds) {
-    return (new WebDriverWait(driver, seconds)).until(ExpectedConditions.visibilityOf(selector));
-  }
-
+  /**
+   * tear down webdriver
+   */
   public static void closeDriver() {
     if (driver != null) {
       try {
         driver.close();
+        driver.quit();
       } catch (Exception exception) {
         driver = null;
       }

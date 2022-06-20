@@ -17,6 +17,7 @@ Configuration
 - browser vm arg for selection of browser for execution by run time , by default pointed to chrome.
 - broser specifi drivers based on versions are placed at /src/main/java/resources/drivers.
 - tag configured by default at runner level **@login**
+- screenshot will be captured on failure of scenario
 - Please download drivers based on browser version of system and place at /src/main/java/resources/drivers for successful execution.
    - GeckoDriver for firefox  https://github.com/mozilla/geckodriver/releases
    - ChromeDriver for chrome  http://chromedriver.storage.googleapis.com/index.html
